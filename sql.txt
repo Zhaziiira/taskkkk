@@ -1,0 +1,22 @@
+#0
+select cus.name, m.name
+from CUSTOMERS cus
+    join MANAGERS m on c.manager_id = m.id
+    join ORDERS o on cus.id = o.customer_id
+where sum(o.amount)>10000 and o.date > 01.01.2013
+
+#1
+select * from hr.employees where lower(first_name) like '%m%'
+
+#2.
+select max(salary)
+from emp
+    group by dept_id
+
+
+# 3. 
+select * from empl where salary in (
+select salary
+ from  group by salary 
+ from empl group by salary 
+ having  count(salary )>1)
