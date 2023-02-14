@@ -1,4 +1,4 @@
-create TABLE CUSTOMERS
+/*create TABLE CUSTOMERS
 (
     ID INT,
     NAME NVARCHAR(20),
@@ -44,19 +44,13 @@ INSERT INTO ORDERS  (ID, DATE, AMOUNT, CUSTOMER_ID) VALUES (1,'02.12.06',8000,3)
 INSERT INTO ORDERS  (ID, DATE, AMOUNT, CUSTOMER_ID) VALUES (2,'02.02.19', 8000,5);
 INSERT INTO ORDERS  (ID, DATE, AMOUNT, CUSTOMER_ID) VALUES (3,'12.12.20', 9000,2);
 INSERT INTO ORDERS  (ID, DATE, AMOUNT, CUSTOMER_ID) VALUES (4,'02.02.21',7000,5);
+*/
 
+select c.name,m.NAME
+FROM customers c 
+	join MANAGER m on m.id = MANAGER_ID 
+	join ORDERS o on c.id = CUSTOMER_ID
+where datediff (day,'01.01.13',date)>=0
+group by c.id, c.name,m.NAME
+having sum(amount)>10000 ;
 
-select (c.name)customers_name, (m.name)manager_name
-FROM customers c
-JOIN MANAGER m
-On m.id = c.MANAGER_ID
-where c.id in (
-		select CUSTOMER_ID
-		from ORDERS 
-			group by CUSTOMER_ID
-			having sum(amount)>10000)
-	AND
-	c.id in (
-		select CUSTOMER_ID
-		from ORDERS 
-			where datediff (day,'01.01.13',date)>=0);
